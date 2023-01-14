@@ -65,12 +65,12 @@ class FormTableViewCell: UITableViewCell, UITextFieldDelegate {
         // Assign frames
         formLabel.frame = CGRect(x: 5,
                              y: 0,
-                             width: contentView.witdh/3,
+                             width: contentView.width/3,
                              height: contentView.height)
         
         field.frame = CGRect(x: formLabel.right + 5,
                              y: 0,
-                             width: contentView.witdh - 10 - formLabel.witdh,
+                             width: contentView.width - 10 - formLabel.width,
                              height: contentView.height)
     }
     

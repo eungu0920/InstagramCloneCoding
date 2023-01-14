@@ -9,7 +9,7 @@ import UIKit
 
 extension UIView {
     
-    public var witdh: CGFloat {
+    public var width: CGFloat {
         return frame.size.width
     }
     

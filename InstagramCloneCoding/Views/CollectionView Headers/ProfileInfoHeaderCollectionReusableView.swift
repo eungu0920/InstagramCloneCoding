@@ -116,7 +116,7 @@ final class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let profilePhotoSize = witdh/4
+        let profilePhotoSize = width/4
         profilePhotoImageView.frame = CGRect(
             x: 5,
             y: 5,
@@ -127,7 +127,7 @@ final class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         profilePhotoImageView.layer.cornerRadius = profilePhotoSize/2.0
         
         let buttonHeight = profilePhotoSize/2
-        let countButtonWidth = (witdh-10-profilePhotoSize)/3
+        let countButtonWidth = (width-10-profilePhotoSize)/3
         
         postsButton.frame = CGRect(
             x: profilePhotoImageView.right,
@@ -160,7 +160,7 @@ final class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         nameLabel.frame = CGRect(
             x: 5,
             y: 5 + profilePhotoImageView.bottom,
-            width: witdh-10,
+            width: width-10,
             height: 50
         ).integral
         
@@ -169,7 +169,7 @@ final class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         bioLabel.frame = CGRect(
             x: 5,
             y: 5 + nameLabel.bottom,
-            width: witdh-10,
+            width: width-10,
             height: bioLabelSize.height
         ).integral
     }

@@ -24,7 +24,7 @@ final class ProfileViewController: UIViewController {
         layout.minimumLineSpacing = 1
         layout.minimumInteritemSpacing = 1
         layout.sectionInset = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 1)
-        let size = (view.witdh - 4)/3
+        let size = (view.width - 4)/3
         layout.itemSize = CGSize(width: size, height: size)
         collectionView = UICollectionView(frame: .zero,
                                           collectionViewLayout: layout)
@@ -113,7 +113,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             let tabControlHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                          withReuseIdentifier: ProfileTabsCollectionReusableView.identifier,
                                                                          for: indexPath) as! ProfileTabsCollectionReusableView
-            
+            tabControlHeader.delegate = self
             return tabControlHeader
         }
         
@@ -126,13 +126,13 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {
-            return CGSize(width: collectionView.witdh,
+            return CGSize(width: collectionView.width,
                           height: collectionView.height/3)
         }
         
         // Size of section tabs
-        return CGSize(width: collectionView.witdh,
-                      height: 65)
+        return CGSize(width: collectionView.width,
+                      height: 50)
     }
     
 }
@@ -146,14 +146,14 @@ extension ProfileViewController: ProfileInfoHeaderCollectionReusableViewDelegate
     }
     
     func profileHeaderDidTapFollowersButton(_ header: ProfileInfoHeaderCollectionReusableView) {
-        let vc = ListViewController()
+        let vc = ListViewController(data: ["Joe", "Joe", "Joe", "Joe",])
         vc.title = "Followers"
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
     }
     
     func profileHeaderDidTapFollowingButton(_ header: ProfileInfoHeaderCollectionReusableView) {
-        let vc = ListViewController()
+        let vc = ListViewController(data: ["Joe", "Joe", "Joe", "Joe",])
         vc.title = "Following"
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
@@ -163,6 +163,18 @@ extension ProfileViewController: ProfileInfoHeaderCollectionReusableViewDelegate
         let vc = EditProfileViewController()
         vc.title = "EditProfile"
         present(UINavigationController(rootViewController: vc), animated: true)
+    }
+    
+    
+}
+
+extension ProfileViewController: ProfileTabsCollectionReusableViewDelegate {
+    func didTapGridButtonTab() {
+        // Reload collection view with data
+    }
+    
+    func didTapTaggedButtonTab() {
+        // Reload collection view with data
     }
     
     
