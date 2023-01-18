@@ -124,11 +124,12 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = renderModels[indexPath.section]
+        
         switch model.renderType {
-        case .actions(let actions):
+        case .actions(_):
             let cell = tableView.dequeueReusableCell(withIdentifier: IGFeedPostActionsTableViewCell.identifier,
                                                      for: indexPath) as! IGFeedPostActionsTableViewCell
-            
+
             return cell
         case .comments(let comments):
             let cell = tableView.dequeueReusableCell(withIdentifier: IGFeedPostGeneralTableViewCell.identifier,
