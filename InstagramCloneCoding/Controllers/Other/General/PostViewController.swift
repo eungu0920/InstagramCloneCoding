@@ -164,5 +164,4 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         case .header(_): return 70
         }
     }
-    
 }
