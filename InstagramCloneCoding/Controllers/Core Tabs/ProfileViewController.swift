@@ -173,7 +173,6 @@ extension ProfileViewController: ProfileInfoHeaderCollectionReusableViewDelegate
         present(UINavigationController(rootViewController: vc), animated: true)
     }
     
-    
 }
 
 extension ProfileViewController: ProfileTabsCollectionReusableViewDelegate {
