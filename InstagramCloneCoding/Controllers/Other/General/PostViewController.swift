@@ -105,7 +105,6 @@ class PostViewController: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
-    
 }
 
 extension PostViewController: UITableViewDelegate, UITableViewDataSource {
