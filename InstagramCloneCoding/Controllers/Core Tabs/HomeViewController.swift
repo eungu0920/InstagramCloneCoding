@@ -40,12 +40,43 @@ class HomeViewController: UIViewController {
     }
     
     private func createMockModels() {
+        let user = User(username: "joe",
+                        bio: "",
+                        name: (first: "", last: ""),
+                        profilePhoto: URL(string: "http://www.google.com")!,
+                        birthDate: Date(),
+                        gender: .male,
+                        counts: UserCount(followers: 1, following: 1, posts: 1),
+                        joinDate: Date())
+        let post = UserPost(identifier: "",
+                            postType: .photo,
+                            thumbnailImage: URL(string: "https://www.google.com")!,
+                            postURL: URL(string: "https://www.google.com")!,
+                            caption: nil,
+                            likeCount: [],
+                            comments: [],
+                            createdDate: Date(),
+                            taggedUsers: [],
+                            owner: user)
+        
+        var comments = [PostComment]()
+        for x in 0..<2 {
+            comments.append(
+                PostComment(
+                    identifier: "\(x)",
+                    username: "@jenny",
+                    text: "This is the best post I've seen",
+                    createdDate: Date(),
+                    likes: []
+                )
+            )
+        }
+        
         for x in 0..<5 {
-            
-            let viewModel = HomeFeedRenderViewModel(header: <#T##PostRenderViewModel#>,
-                                                    post: <#T##PostRenderViewModel#>,
-                                                    actions: <#T##PostRenderViewModel#>,
-                                                    comments: <#T##PostRenderViewModel#>)
+            let viewModel = HomeFeedRenderViewModel(header: PostRenderViewModel(renderType: .header(provider: user)),
+                                                    post: PostRenderViewModel(renderType: .primaryContent(provider: post)),
+                                                    actions: PostRenderViewModel(renderType: .actions(provider: "")),
+                                                    comments: PostRenderViewModel(renderType: .comments(comments: comments)))
             feedRenderModels.append(viewModel)
         }
     }
@@ -128,8 +159,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         if subSection == 0 {
             // header
-            let headerModel = model.header
-            switch headerModel.renderType {
+            switch model.header.renderType {
             case .header(let user):
                 let cell = tableView.dequeueReusableCell(withIdentifier: IGFeedPostHeaderTableViewCell.identifier,
                                                          for: indexPath) as! IGFeedPostHeaderTableViewCell
@@ -140,8 +170,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         else if subSection == 1 {
             // post
-            let postModel = model.post
-            switch postModel.renderType {
+            switch model.post.renderType {
             case .primaryContent(let post):
                 let cell = tableView.dequeueReusableCell(withIdentifier: IGFeedPostTableViewCell.identifier,
                                                          for: indexPath) as! IGFeedPostTableViewCell
@@ -152,8 +181,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         else if subSection == 2 {
             // actions
-            let actionModel = model.actions
-            switch actionModel.renderType {
+            switch model.actions.renderType {
             case .actions(let provider):
                 let cell = tableView.dequeueReusableCell(withIdentifier: IGFeedPostActionsTableViewCell.identifier,
                                                          for: indexPath) as! IGFeedPostActionsTableViewCell
@@ -164,8 +192,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         else if subSection == 3 {
             // comments
-            let commentModel = model.comments
-            switch commentModel.renderType {
+            switch model.comments.renderType {
             case .comments(let comments):
                 let cell = tableView.dequeueReusableCell(withIdentifier: IGFeedPostGeneralTableViewCell.identifier,
                                                          for: indexPath) as! IGFeedPostGeneralTableViewCell
@@ -185,18 +212,31 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let subSection = indexPath.section % 4
         if subSection == 0 {
+            // Header
             return 70
         }
         else if subSection == 1 {
+            // Post
             return tableView.width
         }
         else if subSection == 2 {
+            // Actions (like/comment)
             return 60
         }
         else if subSection == 3 {
+            // Comment row
             return 50
         }
         
         return 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        let subSection = section % 4
+        return subSection == 3 ? 70 : 0
     }
 }

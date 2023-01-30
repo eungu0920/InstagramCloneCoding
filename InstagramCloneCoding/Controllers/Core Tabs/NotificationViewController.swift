@@ -84,14 +84,7 @@ final class NotificationViewController: UIViewController, UITableViewDelegate, U
                                 owner: user)
             let model = UserNotification(type: x % 2 == 0 ? .like(post: post) : .follow(state: .not_following),
                                          text: "Hello World",
-                                         user: User(username: "joe",
-                                                    bio: "",
-                                                    name: (first: "", last: ""),
-                                                    profilePhoto: URL(string: "http://www.google.com")!,
-                                                    birthDate: Date(),
-                                                    gender: .male,
-                                                    counts: UserCount(followers: 1, following: 1, posts: 1),
-                                                    joinDate: Date()))
+                                         user: user)
             models.append(model)
         }
     }
